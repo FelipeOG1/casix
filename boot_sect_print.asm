@@ -16,7 +16,6 @@ start: ; increment bx contents by 1 pointer until null char is found (0)
     add bx, 1
     jmp start
 
-; weird goto kinda programming (improve)
 done:
     popa
     ret
@@ -24,8 +23,11 @@ done:
 
 println:
     pusha
+    
     mov ah, 0x0e
     mov al, 0x0a; newline char
+    int 0x10
+    mov al, 0x0d ; move cursor to start line
     int 0x10
     popa
     ret
