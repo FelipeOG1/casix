@@ -3,10 +3,16 @@
 
 mov bx, HELLO
 call print
+call println
+mov bx, BYE
+call print
+
+jmp $
 
 
 
 
+%include "boot_sect_print.asm"
 
 HELLO:
     db 'Hello', 0
