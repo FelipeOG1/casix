@@ -1,17 +1,7 @@
 [org 0x7c00] ;bootloader offset
 
-mov bx, HELLO
-call print
-
-
-
-
-HELLO:
-    db 'SAUL CONTEMPORANEO', 0
-
-GOODBYE:
-    db 'Goodbye', 0
-
+mov dx, 0x12fe
+call print_hex
 
 
 %include "boot_sect_print.asm"
