@@ -1,11 +1,18 @@
 [org 0x7c00] ;bootloader offset
 mov bx, HELLO
 call print
-jmp $
-
+call println
+mov bx, GOODBYE
+call print
+call println
 
 HELLO:
     db 'Hello', 0
+
+GOODBYE:
+    db 'Goodbye', 0
+
+
 
 %include "boot_sect_print.asm"
 
