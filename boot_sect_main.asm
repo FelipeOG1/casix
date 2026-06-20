@@ -1,13 +1,12 @@
 [org 0x7c00] ;bootloader offset
 
-mov al, [HELLO]
-call print
-jmp $
 
-print:
-    mov ah, 0x0e
-    int 0x10
-    ret
+mov bx, HELLO
+call print
+
+
+
+
 
 HELLO:
     db 'Hello', 0
