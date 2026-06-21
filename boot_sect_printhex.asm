@@ -3,7 +3,7 @@ print_hex:
     mov cx, 0
     
 
-print_hex_loop:
+print_hex_loop: ;PARAMS(dx=hex_number)
     cmp cx, 4
     je end
     mov ax, dx

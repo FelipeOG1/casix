@@ -1,24 +1,24 @@
-mov ah, 0x0e ; tty
-mov bx, 0x7c0
-mov ds, bx
-mov al, [the_secret]
-int 0x10
+[org 0x7c00]
 
-
-mov al, 'Z'
-int 0x10
-
-
+mov bx, 0x9000
+mov cl, 0x03
+call read_disk
+mov dx, [bx]
+call print_hex
 
 jmp $
 
-the_secret:
-    db "X"
 
 
 
-SECRET:
-    db 'X'
 
-times 510-($-$$) db 0
+%include "boot_sect_print.asm"
+%include "boot_sect_printhex.asm"
+%include "boot_sect_disk.asm"
+times 510 - ($ - $$) db 0
 dw 0xaa55
+
+times 256 dw 0xdada   ; sector 2 (512 bytes)
+times 256 dw 0xface   ; sector 3 (512 bytes)
+times 256 dw 0xface   ; sector 3 (512 bytes)
+
