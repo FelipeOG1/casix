@@ -21,4 +21,3 @@ dw 0xaa55
 times 256 dw 0xdada   ; sector 2 (512 bytes)
 times 256 dw 0xface   ; sector 3 (512 bytes)
 times 256 dw 0xface   ; sector 3 (512 bytes)
-
