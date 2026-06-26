@@ -16,8 +16,8 @@ print_string_loop:
     je print_string_pm_done
 
     mov [edx], ax
-    add edx, 1
-    add edx, 2
+    add ebx, 1 ;next char on ebxd
+    add edx, 2 ;next video memory on edx
 
     jmp print_string_loop
 

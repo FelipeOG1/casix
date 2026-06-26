@@ -5,7 +5,7 @@ mov sp, bp
 
 mov bx, MSG_REAL_MODE
 call print
-
+call switch_to_pm
 jmp $
 
 %include "bootloader/boot_sect_print.asm"
@@ -18,6 +18,7 @@ jmp $
 [bits 32]
 BEGIN_PM:
     mov bx, MSG_PROT_MODE
+    call print_string_pm
     jmp $
 
 
