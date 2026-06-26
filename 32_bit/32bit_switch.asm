@@ -21,5 +21,4 @@ init_pm:
     mov ebp, 0x9000
     mov esp, ebp
 
-
     call BEGIN_PM

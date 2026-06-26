@@ -1,12 +1,12 @@
 ;EACH SEGMENT IS  8 BYTES LONG
 gdt_start:
-    dd 0x00
-    dd 0x00
+    dd 0x0
+    dd 0x0
 
 gdt_code:
     dw 0xffff
-    dw 0x00
-    db 0x00
+    dw 0x0
+    db 0x0
     db 10011010b ; flags (8 bits)
     db 11001111b ; flags (4 bits) + segment length, bits 16-19
     db 0x0       ; segment base, bits 24-31
