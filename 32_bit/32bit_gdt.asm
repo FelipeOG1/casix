@@ -14,7 +14,7 @@ gdt_code:
 
 
 gdt_data:
-    dw dw 0xffff
+    dw 0xffff
     dw 0x0
     db 0x0
     db 10010010b

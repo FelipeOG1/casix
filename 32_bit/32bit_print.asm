@@ -1,10 +1,11 @@
 [bits 32]
+
 VIDEO_MEMORY equ 0xb8000
-WHITE_ON_BLACK 0x0f
+WHITE_ON_BLACK equ 0x0f
 
 print_string_pm:
     pusha
-    move edx, VIDEO_MEMORY
+    mov edx, VIDEO_MEMORY
 
 
 print_string_loop:
