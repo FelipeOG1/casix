@@ -1,15 +1,15 @@
 [org 0x7c00]
+mov bp, 0x9000
+mov sp, bp
 
-mov bx, 0x9000
-mov cl, 0x03
-call read_disk
 
-mov dx, [bx]
-call print_hex
+mov bx, HELLO_FROM_STACK
+call print
+call println
 
-jmp $
-HELLO:
-    db 'Hello from bios', 0
+
+HELLO_FROM_STACK:
+    db "Hello from stack", 0
 
 
 
