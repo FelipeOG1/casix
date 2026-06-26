@@ -3,14 +3,10 @@ mov bp, 0x9000
 mov sp, bp
 
 
-mov bx, HELLO_FROM_STACK
+mov bx, MSG_REAL_MODE
 call print
-call println
 
-
-HELLO_FROM_STACK:
-    db "Hello from stack", 0
-
+jmp $
 
 
 %include "bootloader/boot_sect_print.asm"
@@ -18,6 +14,15 @@ HELLO_FROM_STACK:
 %include "bootloader/boot_sect_printhex.asm"
 
 
+
+
+
+
+MSG_REAL_MODE db "STARTED 16-BIT PROTECTED MODE", 0
+MSG_PROT_MODE db "LOADED 32-BIT PROTECTED MODE", 0
+
+
+;(bootsector)
 times 510 -($-$$) db 0
 dw 0xaa55
 
