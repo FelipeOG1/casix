@@ -1,9 +1,5 @@
 [org 0x7c00]
 
-
-
-
-
 mov bx, 0x9000
 mov cl, 0x03
 call read_disk

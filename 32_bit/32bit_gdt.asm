@@ -1,6 +1,4 @@
 ;EACH SEGMENT IS  8 BYTES LONG
-
-
 gdt_start:
     dd 0x00
     dd 0x00
@@ -27,6 +25,8 @@ gdt_end:
     
 
 gdt_descriptor:
+    dw gdt_end - gdt_start -1
+    dd gdt_start
     
 
 CODE_SEG equ gdt_code - gdt_start
