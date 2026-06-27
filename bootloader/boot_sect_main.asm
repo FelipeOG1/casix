@@ -1,11 +1,14 @@
 [org 0x7c00]
-KERNEL_OFFSET eq 0x1000 ; same as linker adress;
+KERNEL_OFFSET equ 0x1000
 
 mov bp, 0x9000
 mov sp, bp
 
 mov bx, MSG_REAL_MODE
 call print
+call println
+
+call load_kernel
 call switch_to_pm
 jmp $
 
@@ -15,6 +18,14 @@ jmp $
 %include "32_bit/32bit_print.asm"
 
 
+[bits 16]
+load_kernel:
+    mov bx, MSG_KERNEL
+    call print
+    call println
+    jmp $
+
+
 
 [bits 32]
 BEGIN_PM:
@@ -22,10 +33,10 @@ BEGIN_PM:
     call print_string_pm
     jmp $
 
-
+BOOT_DRIVE db 0;
 MSG_REAL_MODE db "STARTED 16-BIT PROTECTED MODE",0
 MSG_PROT_MODE db "WELCOME TO CASIX OS",0
-
+MSG_KERNEL db "Loading kernel into memory", 0
 
 ;(bootsector)
 times 510 -($-$$) db 0
