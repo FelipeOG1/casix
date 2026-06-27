@@ -5,6 +5,10 @@ NASM = nasm
 ASFLAGS = -f bin
 BIN_DIR = bin/
 
+CXX = i386-elf-g++
+
+CXXFLAGS = -ffreestanding -O2 -m32 -fno-exceptions -fno-rtti
+
 BOOT_LOADER_SRC = $(BOOT_DIR)$(BOOT_MAIN).asm
 BOOT_LOADER_OUT = $(BIN_DIR)$(BOOT_MAIN).bin
 
@@ -13,3 +17,6 @@ iso:
 
 run: iso
 	$(QEMU_SYSTEM) $(BOOT_LOADER_OUT) -boot c
+
+compile:
+	$(CXX) $(CXXFLAGS) $(FILE).cpp -o $(FILE).o
