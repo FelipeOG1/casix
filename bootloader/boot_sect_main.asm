@@ -1,5 +1,6 @@
 [org 0x7c00]
-[bits 16]
+KERNEL_OFFSET eq 0x1000 ; same as linker adress;
+
 mov bp, 0x9000
 mov sp, bp
 
