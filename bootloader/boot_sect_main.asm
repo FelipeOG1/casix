@@ -13,6 +13,7 @@ call switch_to_pm
 jmp $
 
 %include "bootloader/boot_sect_print.asm"
+%include "bootloader/boot_sect_disk.asm"
 %include "32_bit/32bit_switch.asm"
 %include "32_bit/32bit_gdt.asm"
 %include "32_bit/32bit_print.asm"
@@ -23,9 +24,12 @@ load_kernel:
     mov bx, MSG_KERNEL
     call print
     call println
-    jmp $
-
-
+    
+    mov bx, KERNEL_OFFSET
+    mov dh, 2
+    mov dl, [BOOT_DRIVE]
+    call read_disk
+    ret
 
 [bits 32]
 BEGIN_PM:
