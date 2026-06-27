@@ -35,6 +35,7 @@ load_kernel:
 BEGIN_PM:
     mov bx, MSG_PROT_MODE
     call print_string_pm
+    call KERNEL_OFFSET 
     jmp $
 
 BOOT_DRIVE db 0;
@@ -45,7 +46,4 @@ MSG_KERNEL db "Loading kernel into memory", 0
 ;(bootsector)
 times 510 -($-$$) db 0
 dw 0xaa55
-
-times 512 db 5
-times 512 db 10
 
