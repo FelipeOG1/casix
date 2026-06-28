@@ -1,6 +1,6 @@
 #include "ports.h"
 #include "screen.h"
-namespace ScreenDriver{
+namespace Screen{
     
     volatile char* vga = (volatile char*)0xb8000;
 
@@ -23,12 +23,9 @@ namespace ScreenDriver{
                                Cursor::_position & 0xFF);
     }
 
-
-    
-    
     void Display::write_char(char value, 
-                    ScreenDriver::VgaColor background,
-                    ScreenDriver::VgaColor foreground) {
+                    Screen::VgaColor background,
+                    Screen::VgaColor foreground) {
     
         int offset_vga = Display::_cursor.position() * 2;
         unsigned char color_attr = (background << 4) | foreground; 
@@ -41,11 +38,10 @@ namespace ScreenDriver{
     }
 
     void Display::clean_screen() {
-        for (int i=0; i<10; i++) {
-            write_char(' ', ScreenDriver::VgaColor::BLACK, 
-                 ScreenDriver::VgaColor::BLACK);
-                
-        }  
+        Display::_cursor.update_position(0);
+        
+        
+        
     }
 
 }
