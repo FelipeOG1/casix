@@ -1,9 +1,15 @@
 namespace Screen{
-    enum VgaColor: unsigned char {
-        BLACK = 0,
-        BLUE = 1,
-        
+     enum VgaColor : unsigned char {
+        BLACK          = 0,
+        BLUE           = 1,
+        GREEN          = 2,
+        CYAN           = 3,
+        RED            = 4,
+        MAGENTA        = 5,
+        BROWN          = 6,
+        LIGHT_GRAY     = 7,
     };
+
     constexpr unsigned char WIDTH = 80;
     constexpr unsigned char HEIGHT = 25;
     constexpr int  TOTAL_CELLS = WIDTH * HEIGHT;
