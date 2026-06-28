@@ -1,15 +1,8 @@
 #include "../drivers/screen.h"
 
 void main() {
-    ScreenDriver::write_char('x', 
-                             ScreenDriver::Color::BLUE,
-                             ScreenDriver::Color::BLACK);
-
-    ScreenDriver::write_char('x', 
-                             ScreenDriver::Color::BLUE,
-                             ScreenDriver::Color::BLACK);
-
-    
-
+    ScreenDriver::Display display;
+    display.write_char('x', ScreenDriver::VgaColor::BLACK, ScreenDriver::VgaColor::BLUE);
+    display.write_char('e', ScreenDriver::VgaColor::BLACK, ScreenDriver::VgaColor::BLUE);
 }
 
