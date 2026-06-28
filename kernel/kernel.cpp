@@ -1,3 +1,7 @@
+#include "../drivers/ports.h"
+
+
+
 void main() {
 	char* vga_entry = (char*) 0xb8000;
     for (int i=0 ; i<20; i++) {
@@ -5,6 +9,6 @@ void main() {
         vga_entry += 1;
             
     }
-    
+   
 }
 
