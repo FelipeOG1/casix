@@ -23,12 +23,10 @@ namespace Screen{
                                Cursor::_position & 0xFF);
     }
 
-    void Display::write_char(char value, 
-                    Screen::VgaColor background,
-                    Screen::VgaColor foreground) {
-    
+    void Display::write_char(char value){
+        
         int offset_vga = Display::_cursor.position() * 2;
-        unsigned char color_attr = (background << 4) | foreground; 
+        unsigned char color_attr = (Display::_background_color << 4) | Display::_foreground_color; 
     
         vga[offset_vga] = value;
         vga[offset_vga+1] = color_attr;
@@ -39,9 +37,7 @@ namespace Screen{
 
     void Display::clean_screen() {
         Display::_cursor.update_position(0);
-        
-        
-        
+        for (int i=0; i < Screen::TOTAL_CELLS; i++) Display::write_char(' ');   
     }
 
 }
