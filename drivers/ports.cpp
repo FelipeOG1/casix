@@ -3,10 +3,10 @@
 
 // AT&T syntax source: destination
 unsigned char read_port_byte(unsigned short port) {
-    unsigned char res;
+    unsigned char out;
     
-    __asm__("in %%dx, %%al" : "=a" (res) : "d"(port));
-    return res;
+    __asm__("in %%dx, %%al" : "=a" (out) : "d"(port));
+    return out;
 }
 
 
@@ -16,11 +16,11 @@ void write_port_byte(unsigned short port, unsigned char data) {
 }
 
 unsigned short read_port_word(unsigned short port) {
-    unsigned short result;
+    unsigned short out;
     
-    __asm__("in %%dx, %%al" : "=a"(result) : "d"(port));
+    __asm__("in %%dx, %%al" : "=a"(out) : "d"(port));
     
-    return result;
+    return out;
     
 }
 
@@ -29,9 +29,3 @@ void write_port_word(unsigned short port, unsigned short data){
     __asm__("out %%al, %%dx" :  :"a" (data), "d"(port));
     
 }
-    
-
-
-
-
-    
