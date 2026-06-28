@@ -10,7 +10,7 @@ namespace ScreenDriver{
         
     public:
         int get_position();
-        void update_position();
+        void update_position(int new_position);
         Cursor() : _position(get_position()) {}
 
         int position() const { return _position; }
@@ -23,6 +23,7 @@ namespace ScreenDriver{
         void write_char(char value, 
                     ScreenDriver::VgaColor background,
                     ScreenDriver::VgaColor foreground);
+        void clean_screen();
 
         Display() : _cursor(Cursor()) {}
     
