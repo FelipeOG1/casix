@@ -1,14 +1,15 @@
-#include "../drivers/ports.h"
-
-
+#include "../drivers/screen.h"
 
 void main() {
-	char* vga_entry = (char*) 0xb8000;
-    for (int i=0 ; i<20; i++) {
-        *vga_entry = 'z';
-        vga_entry += 1;
-            
-    }
-   
+    ScreenDriver::write_char('x', 
+                             ScreenDriver::Color::BLUE,
+                             ScreenDriver::Color::BLACK);
+
+    ScreenDriver::write_char('x', 
+                             ScreenDriver::Color::BLUE,
+                             ScreenDriver::Color::BLACK);
+
+    
+
 }
 
