@@ -8,7 +8,7 @@ BOOT_MAIN = boot_sect_main
 QEMU_SYSTEM = qemu-system-i386
 NASM = nasm
 ASFLAGS_BIN = -f bin
-ASFLAGS_ELF = -f elf
+ASFLAGS_ELF = -f elf32
 
 CXX = i386-elf-g++
 CXXFLAGS = -ffreestanding -O2 -m32 -fno-exceptions -fno-rtti -g
@@ -24,16 +24,23 @@ KERNEL_ENTRY_SRC = $(KERNEL_DIR)$(KERNEL_ENTRY).asm
 KERNEL_ENTRY_OUT = $(KERNEL_DIR)$(KERNEL_ENTRY).o
 
 KERNEL_ELF = $(BIN_DIR)$(KERNEL).elf
+LINKER_SCRIPT = $(KERNEL_DIR)linker.ld
+
 CXX_SOURCES = $(wildcard kernel/*.cpp drivers/*.cpp kernel/interrupts/*.cpp)
 CXX_OBJECTS = $(CXX_SOURCES:.cpp=.o)
 
-LINKER_SCRIPT = $(KERNEL_DIR)linker.ld
+KERNEL_ASM_SOURCES = $(filter-out $(KERNEL_ENTRY_SRC), $(wildcard kernel/*.asm kernel/interrupts/*.asm))
+KERNEL_ASM_OBJECTS = $(KERNEL_ASM_SOURCES:.asm=.o)
+# ==========================================
 
 # Default target
 all: os-image.bin
 
 # Assembly entry point (must be ELF for linking)
 $(KERNEL_ENTRY_OUT): $(KERNEL_ENTRY_SRC)
+	$(NASM) $(ASFLAGS_ELF) $< -o $@
+
+%.o: %.asm
 	$(NASM) $(ASFLAGS_ELF) $< -o $@
 
 # Generic C++ compilation rule — works for ANY .cpp in kernel/ or drivers/
@@ -45,13 +52,13 @@ $(BOOT_LOADER_OUT): $(BOOT_LOADER_SRC)
 	$(NASM) $(ASFLAGS_BIN) $< -o $@
 
 # Kernel binary (linked raw)
-$(BIN_DIR)$(KERNEL).bin: $(KERNEL_ENTRY_OUT) $(CXX_OBJECTS) $(LINKER_SCRIPT)
-	$(LD) -m elf_i386 -o $(KERNEL_ELF) -T $(LINKER_SCRIPT) $(KERNEL_ENTRY_OUT) $(CXX_OBJECTS)
-	$(LD) -o $@ -T $(LINKER_SCRIPT) $(KERNEL_ENTRY_OUT) $(CXX_OBJECTS) --oformat binary
+$(BIN_DIR)$(KERNEL).bin: $(KERNEL_ENTRY_OUT) $(KERNEL_ASM_OBJECTS) $(CXX_OBJECTS) $(LINKER_SCRIPT)
+	$(LD) -m elf_i386 -o $(KERNEL_ELF) -T $(LINKER_SCRIPT) $(KERNEL_ENTRY_OUT) $(KERNEL_ASM_OBJECTS) $(CXX_OBJECTS)
+	$(LD) -o $@ -T $(LINKER_SCRIPT) $(KERNEL_ENTRY_OUT) $(KERNEL_ASM_OBJECTS) $(CXX_OBJECTS) --oformat binary
 	
 # OS image = boot sector + kernel padded to at least 2 sectors
 os-image.bin: $(BOOT_LOADER_OUT) $(BIN_DIR)$(KERNEL).bin
-	dd if=/dev/zero of=$@ bs=512 count=2 status=none
+	dd if=/dev/zero of=$@ bs=512 count=32 status=none # Aumentado a 32 sectores para prever crecimiento de .data
 	dd if=$(BOOT_LOADER_OUT) of=$@ conv=notrunc bs=512 count=1 status=none
 	dd if=$(BIN_DIR)$(KERNEL).bin of=$@ conv=notrunc bs=512 seek=1 status=none
 
@@ -66,8 +73,7 @@ compile:
 debug: os-image.bin
 	$(QEMU_SYSTEM) -fda os-image.bin -s -S
 
-# Clean build artifacts
 clean:
-	rm -f $(KERNEL_ENTRY_OUT) $(CXX_OBJECTS)
+	rm -f $(KERNEL_ENTRY_OUT) $(KERNEL_ASM_OBJECTS) $(CXX_OBJECTS)
 	rm -f $(BOOT_LOADER_OUT) $(BIN_DIR)$(KERNEL).bin $(KERNEL_ELF)
 	rm -f os-image.bin

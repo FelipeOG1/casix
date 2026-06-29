@@ -3,7 +3,7 @@
 
 namespace Interrupts{
     struct IdtEntry {
-        uint8_t low_offset;
+        uint16_t low_offset;
         uint16_t selector;
         uint8_t always0;
         uint8_t flags;
@@ -12,7 +12,7 @@ namespace Interrupts{
     
     struct IdtPointer {
         uint16_t limit;
-        uint16_t base;
+        uint32_t base;
     } __attribute__((packed));
     
     void init_idt();

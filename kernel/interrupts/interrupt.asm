@@ -1,9 +1,8 @@
 [bits 32]
+section .text
 extern exception_handler
 
-
 global isr0
-
 
 isr0:
     pusha
