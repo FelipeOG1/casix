@@ -42,9 +42,9 @@ namespace Screen{
 
     }
     void Display::show_panic_display() {
-        Display::clean_screen();
         int n_rows = Display::get_row(5);
-        for (int i=0; i < Screen::TOTAL_CELLS; i++) Display::write_char('!');   
+        Display::_background_color = VgaColor::RED;
+        for (int i=0; i < TOTAL_CELLS; i++) Display::write_char('!');
     }
 
 }

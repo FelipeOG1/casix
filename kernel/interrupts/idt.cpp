@@ -5,7 +5,7 @@ namespace Interrupts {
     extern "C" void isr0();
     extern "C" void exception_handler(int interrupt_n) {
         if (interrupt_n == 0) {
-            Screen::main_display.clean_screen();
+            Screen::main_display.show_panic_display();
         }
     }
     
