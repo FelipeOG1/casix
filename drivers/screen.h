@@ -40,6 +40,8 @@ namespace Screen{
         _cursor(Cursor()), _background_color(background), _foreground_color(foreground) {}
     
     };
-   
+
+
+    extern Display main_display;
 
 }

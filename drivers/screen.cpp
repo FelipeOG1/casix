@@ -2,6 +2,7 @@
 #include "screen.h"
 namespace Screen{
     
+    Display main_display(Screen::VgaColor::GREEN, Screen::VgaColor::BLUE); //main display located on .data section
     volatile char* vga = (volatile char*)0xb8000;
 
     int Cursor::get_position() {

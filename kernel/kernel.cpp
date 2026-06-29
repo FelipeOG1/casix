@@ -1,11 +1,9 @@
 #include "../drivers/screen.h"
 #include "interrupts/idt.h"
 void main() {
-    Screen::VgaColor background = Screen::VgaColor::BLACK;
-    Screen::VgaColor foreground = Screen::VgaColor::GREEN;
-    Screen::Display main_display(background, foreground);
+    Screen::main_display = Screen::Display(Screen::VgaColor::BLACK, Screen::VgaColor::GREEN);
+    Screen::main_display.clean_screen();
     
-    main_display.clean_screen();
-    main_display.write_char('$');
+    Interrupts::init_idt();
 }
 

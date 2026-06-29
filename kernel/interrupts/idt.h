@@ -16,4 +16,6 @@ namespace Interrupts{
     } __attribute__((packed));
     
     void init_idt();
+    void set_idt_gate(int n, uint32_t handler, uint16_t selector, uint8_t flags);
+ 
 }

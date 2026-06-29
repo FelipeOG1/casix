@@ -5,4 +5,13 @@ SECTIONS
         *(.text)
         *(.text.*)
     }
+    .data : {
+        *(.data)
+        *(.data.*)
+    }
+
+    .bss : {
+        *(.bss)
+        *(.bss.*)
+    }
 }
