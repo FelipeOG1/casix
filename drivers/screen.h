@@ -32,9 +32,10 @@ namespace Screen{
         Screen::VgaColor _background_color;
         Screen::VgaColor _foreground_color;
     public:
+        int get_row(int row) {  return 80*row; }
         void write_char(char value);
-    
         void clean_screen();
+        void show_panic_display();
 
         Display(Screen::VgaColor background, Screen::VgaColor foreground) :
         _cursor(Cursor()), _background_color(background), _foreground_color(foreground) {}

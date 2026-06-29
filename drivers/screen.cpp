@@ -41,6 +41,11 @@ namespace Screen{
         Display::_cursor.update_position(0);
 
     }
+    void Display::show_panic_display() {
+        Display::clean_screen();
+        int n_rows = Display::get_row(5);
+        for (int i=0; i < Screen::TOTAL_CELLS; i++) Display::write_char('!');   
+    }
 
 }
 
